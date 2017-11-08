@@ -1,27 +1,135 @@
-<!DOCTYPE html>
-<html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<title>Home Page </title>
-<body>
+</html>
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#/">Store</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-<div ng-app="myApp" ng-controller="myCtrl">
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#/">Home <span class="sr-only">(current)</span></a>
 
-  <ul>
-  <li ng-repeat="x in myWelcome">{{x.name}}</li>
-  </ul>
-<script>
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope, $http) {
-  $http({
-    method : "GET",
-    url : "http://localhost:8000/api/products"
-  }).then(function mySuccess(response) {
-      $scope.myWelcome = response.data;
-    }, function myError(response) {
-      $scope.myWelcome = response.statusText;
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container-fluid">
+      <div class="row">
+        <br>
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+          <ul class="nav nav-pills flex-column">
+          </br>
+            </br>  </br>
+            <li class="nav-item">
+              <a class="nav-link" href="#/add-product">Add Product</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#/product-list">Product List</a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Add Property</a>
+            </li>
+          </ul>
+        </nav>
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+             <h1>Dashboard</h1>
+
+             <section class="row text-center placeholders">
+               <script type="text/ng-template" id="pages/home.html">
+                 <h1>Home</h1>
+                 <h3>{{products}}</h3>
+               </script>
+               <script type="text/ng-template" id="pages/product-list.html" >
+                 <h2>Product List</h2>
+                 <div class="table-responsive md-12" style="width:100%">
+                   <table class="table table-striped">
+                     <thead>
+                       <tr>
+                         <th>#</th>
+                         <th>Name</th>
+                         <th>Price</th>
+                         <th>Description</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       <tr ng-repeat="x in products">
+                         <td>#</td>
+                         <td>{{x.name}}</td>
+                         <td>{{x.price}}</td>
+                         <td>{{x.description}}</td>
+                       </tr>
+                     </tbody>
+                   </table>
+                 </div>
+               </script>
+               <script type="text/ng-template" id="pages/add-product.html">
+
+               </script>
+               <div ng-view></div>             </section>
+
+
+           </main>
+         </div>
+       </div>
+
+
+
+    <script>var app = angular.module('myApp', ['ngRoute']);
+
+app.config(function($routeProvider) {
+  $routeProvider
+
+  .when('/', {
+    templateUrl : 'pages/home.html',
+    controller  : 'HomeController'
+  })
+
+  .when('/product-list', {
+    templateUrl : 'pages/product-list.html',
+    controller  : 'ProductListController'
+  })
+
+  .when('/add-product', {
+    templateUrl : 'pages/add-product.html',
+    controller  : 'AddProductController'
+  })
+
+  .otherwise({redirectTo: '/'});
+});
+
+app.controller('HomeController', function($scope) {
+
+});
+
+  app.controller('ProductListController', function($scope, $http) {
+    $http({
+      method : "GET",
+      url : "http://localhost:8000/api/products"
+    }).then(function mySuccess(response) {
+        $scope.products = response.data;
+      }, function myError(response) {
+        $scope.products = response.statusText;
+    });
   });
+
+app.controller('AddProductController', function($scope) {
+
 });
 </script>
-
-</body>
+  </body>
 </html>
