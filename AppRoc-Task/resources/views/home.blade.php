@@ -19,7 +19,7 @@
         <td>{{$prop->name}}</td>
         <td>{{$prop->price}}</td>
         <td>{{$prop->category->name}}</td>
-        <td> 
+        <td>
   <button type="button" class="btn btn-danger"><a href="/product-delete/{{$prop->id}}">Delete</a></button>
 </td>
       </tr>

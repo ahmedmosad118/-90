@@ -1,6 +1,6 @@
 <?php $__env->startSection("container"); ?>
 <br/><br/><br/>
-<form class="col-md-12" method="post" action="/upload-product" enctype="multipart/form-data">
+<form class="col-md-12" method="post" action="/api/upload-product" enctype="multipart/form-data">
   <?php echo e(csrf_field()); ?>
 
   <div class="form-group">
@@ -25,7 +25,7 @@
     </select>
   </div>
   <div class="property">
-    <button class="add_field_button">Add More Fields</button>
+
     <div class="form-group">
         <label for="title">Select Property:</label>
         <select name="property_id[]" class="form-control" id="property">
@@ -37,6 +37,8 @@
       <input type="text" class="form-control" name="value[]"  required>
     </div>
 </div>
+  <button class="add_field_button">Add Property</button>
+  <br/>
   <div class="box-footer">
     <button type="submit" class="btn btn-primary pull-right">Add New</button>
   </div>
@@ -56,15 +58,15 @@ $("#category").on("change",function(e){
   });
 });
 $(document).ready(function() {
-    var max_fields      = 10; //maximum input boxes allowed
-    var wrapper         = $(".property"); //Fields wrapper
-    var add_button      = $(".add_field_button"); //Add button ID
+    var max_fields      = 10;
+    var wrapper         = $(".property");
+    var add_button      = $(".add_field_button");
 
-    var x = 1; //initlal text box count
-    $(add_button).click(function(e){ //on add input button click
+    var x = 1;
+    $(add_button).click(function(e){
         e.preventDefault();
-        if(x < max_fields){ //max input box allowed
-            x++; //text box increment
+        if(x < max_fields){
+            x++;
             $(wrapper).append(`<div class="form-group">
                     <label for="title">Select Property:</label>
                     <select name="property_id[]" class="form-control" id="property">
@@ -79,13 +81,10 @@ $(document).ready(function() {
                   <input type="text" class="form-control" name="value[]"  required>
                 </div>
 `
-); //add input box
+);
         }
     });
 
-    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove(); x--;
-    })
 });
 </script>
 </br>

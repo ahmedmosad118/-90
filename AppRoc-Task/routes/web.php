@@ -13,8 +13,8 @@
 
 Route::get('/product-add', 'ProductController@productAdd');
 Route::get('myform/ajax','ProductController@getProperty');
-Route::post("/upload-product","ProductController@postProduct");
 Route::get('/', 'ProductController@productList');
 Route::get('/product-delete/{id}', 'ProductController@deleteProduct');
 Route::get('/product-edit/{id}', 'ProductController@editProduct');
 Route::post("/edit-product/{id}","ProductController@putProduct");
+// Route::get("/prodcuts","ProductController@getProduct");

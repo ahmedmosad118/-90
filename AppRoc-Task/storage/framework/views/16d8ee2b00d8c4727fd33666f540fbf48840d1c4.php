@@ -18,7 +18,7 @@
         <td><?php echo e($prop->name); ?></td>
         <td><?php echo e($prop->price); ?></td>
         <td><?php echo e($prop->category->name); ?></td>
-        <td>  <button type="button" class="btn btn-info"><a href="/product-edit/<?php echo e($prop->id); ?>">Edit<a></button>
+        <td>
   <button type="button" class="btn btn-danger"><a href="/product-delete/<?php echo e($prop->id); ?>">Delete</a></button>
 </td>
       </tr>
